@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveBtn = document.getElementById('save-btn');
     const toastContainer = document.getElementById('toast-container');
 
+    let initialDataLoaded = false; // Flag to prevent saving before initial load
+
     let debounceTimer;
     const debounce = (func, delay) => {
         return function() {
@@ -14,7 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const savePrompts = async () => {
+    const savePrompts = async (showNotification = false) => {
+        if (!initialDataLoaded) return; // Prevent saving before initial data is loaded
+
         const prompts = [];
         tableBody.querySelectorAll('tr').forEach(row => {
             const cells = row.querySelectorAll('td');
@@ -35,14 +39,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify(prompts)
             });
-            showToast('Prompts saved successfully!');
+            if (showNotification) {
+                showToast('Prompts saved successfully!');
+            }
         } catch (error) {
             console.error('Error saving prompts:', error);
             showToast('Error saving prompts', 'error');
         }
     };
 
-    const debouncedSave = debounce(savePrompts, 2000);
+    const debouncedSave = debounce(() => savePrompts(false), 2000);
 
     const showToast = (message, type = 'success') => {
         const toast = document.createElement('div');
@@ -63,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/api/prompts');
             const prompts = await response.json();
             renderPrompts(prompts);
+            initialDataLoaded = true; // Set flag after initial load
         } catch (error) {
             console.error('Error fetching prompts:', error);
             showToast('Error fetching prompts', 'error');
@@ -142,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         debouncedSave();
     });
 
-    saveBtn.addEventListener('click', savePrompts);
+    saveBtn.addEventListener('click', () => savePrompts(true));
 
     fetchPrompts();
 });

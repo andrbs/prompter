@@ -5,6 +5,12 @@ body {
 
 h1 {
     text-align: center;
+    background-color: #333; /* Dark background for the header */
+    color: white; /* White text color */
+    padding: 15px 0; /* Some padding top and bottom */
+    margin-bottom: 20px; /* Space below the header */
+    font-size: 2em; /* Larger font size */
+    font-weight: bold;
 }
 
 table {
@@ -23,7 +29,7 @@ th, td {
 }
 
 .type-header {
-    width: 15%;
+    width: 9%;
 }
 
 .name-header {
@@ -31,11 +37,13 @@ th, td {
 }
 
 .prompt-header {
-    width: 70%;
+    width: 76%;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #e0e0e0; /* Light gray background */
+    font-weight: bold;
+    font-size: 1.1em;
 }
 
 td[contenteditable="true"] {

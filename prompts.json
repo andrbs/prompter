@@ -28,10 +28,5 @@
     "type": "System",
     "name": "New Prompt",
     "prompt": "Generate Python script to interact with OpenAI LLM, that will work in Linux terminal. Script is triggered by command_not_found_handle(),\n\nRequirements:\n- generate Python requirements.txt\n- generate Yaml configuration file for model selection, model parameters (temperature, top_p) and system prompt\n- output LLM responce as stream directly into terminal without formatting\n- script exits directly after responce without keeping history\n- keep code as siple as possible, use openai package\n\n\n"
-  },
-  {
-    "type": "System",
-    "name": "llkjl",
-    "prompt": ""
   }
 ]
